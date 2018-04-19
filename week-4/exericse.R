@@ -4,45 +4,46 @@ library(dplyr)
 
 # Read in the NBA team data of the 2016-2017 season from the data directory  
 # into a variable called `team.data` using `read.csv`
-
+team.data <- read.csv("Data/teams.csv", stringsAsFactors = FALSE)
 
 # The data.frame team.data should now be accessible to you. 
 # View it, and get some basic information about the number of rows/columns. 
 # Note the "X" preceding some of the column titles as well as the "*" 
 # following the names of teams that made it to the playoffs that year.
-
+View(team.data)
 
 
 # Add a column that gives the turnovers to steals ratio (TOV / STL) for each team
-
-
+team.data <- mutate(team.data, ratio = TOV / STL)
+ 
 
 # Sort the teams from lowest turnover/steal ratio to highest
-
+arrange(team.data, ratio)
 
 # Get the team that had the highest Total Rebounds (TRB) only with the columns 
 # Team and TRB  *using one line of code*
-
+best <- filter(select(team.data, Team, TRB), TRB == max(TRB))
 
 # Print only the name of the team that had the highest total rebounds
 # (that also happens to be the greatest team of all time)
 
-
+print(best[1,1])
 
 ## Let's change gears!
 
 # Read in the Pokemon data from the data directory  
 # into a variable called `pokemon` using `read.csv`. Remember to not read strings in as factors.
+pokemon <- read.csv("Data/pokemon.csv", stringsAsFactors = FALSE)
 
 # First, View() the data set to see what info you have to work with 
-
+View(pokemon)
 
 # Find all the Pokemon that are "Water" Type 1 (or your favorite)
 # Save those rows into a variable called `water.pkm`
-
+water.pkm <- filter(pokemon, Type.1 == "Water")
 
 # Group the pokemon by Type 2 and save into a descriptive variable.
-
+water_groups <- group_by(water.pkm, Type.2)
 # View your new variable -- did it affect anything?
 
 
